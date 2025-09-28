@@ -337,11 +337,16 @@
             <div id="records-container" class="bg-gray-100 p-4 rounded-lg border-2 border-gray-300 max-h-96 overflow-y-auto">
                 <p class="text-gray-500 text-center">Select a class and click 'Load Records' to view.</p>
             </div>
+            <!-- UPDATED: Added Export Button -->
             <div class="flex justify-between space-x-4 pt-4">
                 <button type="button" id="back-btn-view-records"
                         class="flex-1 flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-slate-500 hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400 transition duration-150 ease-in-out transform hover:scale-105 hover:shadow-xl">
                         Back
                     </button>
+                <button type="button" id="export-data-btn"
+                        class="flex-1 flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out transform hover:scale-105 hover:shadow-xl">
+                    Export Data (CSV)
+                </button>
             </div>
         </div>
 
@@ -352,10 +357,12 @@
                 <div>
                     <label for="payment-admission-no" class="block text-sm font-medium text-gray-700">Admission No</label>
                     <input type="text" id="payment-admission-no" name="Admission No" class="mt-1 block w-full rounded-md border-2 border-gray-800 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
+                    <p id="modal-passcode-hint" class="text-sm text-gray-500 mb-6 text-center">Please enter the passcode to continue.</p>
                 </div>
                 <div class="flex justify-between space-x-4 pt-4">
                     <button type="button" id="search-payment-btn"
                             class="flex-1 flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out transform hover:scale-105 hover:shadow-xl">
+    
                         Search
                     </button>
                 </div>
@@ -463,7 +470,7 @@
         </div>
     </div>
 
-    <!-- 1. The Passcode Modal (UPDATED FOR NO HINTS) -->
+    <!-- 1. The Passcode Modal -->
     <div id="passcodeModal" class="modal">
       <div class="modal-content w-full max-w-sm">
         <span id="passcode-close-btn" class="close-btn">&times;</span>
@@ -596,6 +603,9 @@
         const backBtnPaymentStatus = document.getElementById('back-btn-payment-status'); 
         const searchPaymentBtn = document.getElementById('search-payment-btn');
         const paymentForm = document.getElementById('payment-form');
+        
+        // NEW: Export Button
+        const exportDataBtn = document.getElementById('export-data-btn');
 
         // Bulk Update Elements (omitted for brevity)
         const bulkClassNameSelect = document.getElementById('bulk-class-name');
@@ -633,7 +643,7 @@
         const receiptCloseBtn = document.getElementById("receipt-close-btn");
         const printReceiptBtn = document.getElementById("print-receipt-btn");
         
-        // NEW Passcode Modal Elements (Updated IDs)
+        // Passcode Modal Elements
         const passcodeModal = document.getElementById("passcodeModal");
         const passcodeCloseBtn = document.getElementById("passcode-close-btn");
         const passcodeForm = document.getElementById("passcode-form");
@@ -646,7 +656,8 @@
         let allStudentsData = [];
         let allHeaders = [];
         let foundStudentData = null; // Store the found student object
-        let currentPaymentHistory = []; // NEW: Store the payment history for validation
+        let currentPaymentHistory = []; // Store the payment history for validation
+        let currentFilteredData = []; // NEW: Store the currently filtered data for export
         
         // Global variables for dynamic passcode handling
         let pendingAction = null; 
@@ -666,7 +677,6 @@
 
         /**
          * Hides all main content sections and shows only the specified one.
-         * This is the core navigation fix for reliability.
          * @param {HTMLElement} sectionToShow The section element to make visible.
          */
         function showSection(sectionToShow) {
@@ -718,29 +728,24 @@
             return date.toLocaleString();
         }
         
-        // --- PASSCODE LOGIC (UPDATED: HINT REMOVED) ---
+        // --- PASSCODE LOGIC ---
         
         /**
          * Displays the passcode modal, sets the intended action, and stores the required code.
-         * @param {Function} action A function to execute on successful passcode entry.
-         * @param {string} requiredCode The unique passcode required for this action.
-         * @param {string} actionLabel A user-friendly name for the action.
          */
         function showPasscodeModal(action, requiredCode, actionLabel) {
             pendingAction = action;
-            pendingRequiredCode = requiredCode; // Store the required code
-            pendingActionLabel = actionLabel; // Store the action label for display
+            pendingRequiredCode = requiredCode; 
+            pendingActionLabel = actionLabel; 
             
-            passcodeInput.value = ''; // Clear previous input
-            passcodeErrorMessage.classList.add('hidden'); // Clear previous error
+            passcodeInput.value = ''; 
+            passcodeErrorMessage.classList.add('hidden'); 
             
-            // Update modal title and hint (HINT REMOVED)
             modalActionTitle.textContent = `Access Required: ${actionLabel}`;
             modalPasscodeHint.textContent = `Please enter the passcode for ${actionLabel}.`; 
             
             passcodeModal.style.display = 'flex';
             
-            // Ensure focus is correctly applied for immediate typing
             setTimeout(() => passcodeInput.focus(), 100); 
         }
 
@@ -764,17 +769,14 @@
             if (enteredPasscode === pendingRequiredCode) {
                 passcodeErrorMessage.classList.add('hidden');
                 
-                // Add a small delay for cleaner transition after modal closure
                 setTimeout(() => {
                     if (pendingAction) {
-                        pendingAction(); // Execute the stored action (e.g., showSection)
-                        console.log(`Passcode accepted for ${pendingActionLabel}. Executing action.`);
+                        pendingAction(); 
                     }
-                    closePasscodeModal(); // Close modal after action is initiated
+                    closePasscodeModal(); 
                 }, 100); 
                 
             } else {
-                // Error message without the hint
                 passcodeErrorMessage.textContent = `Invalid Passcode for ${pendingActionLabel}. Try again.`;
                 passcodeErrorMessage.classList.remove('hidden');
                 passcodeInput.value = '';
@@ -785,7 +787,7 @@
         
         passcodeCloseBtn.onclick = closePasscodeModal;
 
-        // --- UPDATED EVENT LISTENERS - Navigation (Using Dynamic Passcodes) ---
+        // --- NAVIGATION EVENT LISTENERS ---
         
         updateStudentBtn.addEventListener('click', () => {
             showPasscodeModal(() => {
@@ -806,10 +808,8 @@
             }, PASSCODES.UPDATE_PAYMENT, "Update Payment");
         });
         
-        // Passcode check for the "Payment Status" button
         paymentStatusBtn.addEventListener('click', () => {
             showPasscodeModal(() => {
-                // This function currently just opens a new tab/link
                 window.open('https://lsurjit.github.io/thedemoschool/'); 
             }, PASSCODES.PAYMENT_STATUS, "Payment Status");
         });
@@ -1051,8 +1051,12 @@
             reader.readAsText(file);
         });
         
-        // Event Listeners - Payment (UPDATED)
-        searchPaymentBtn.addEventListener('click', async function() {
+        // --- Payment Search & Logic ---
+
+        /**
+         * Handles the logic for searching a student by Admission No in the Update Payment section.
+         */
+        async function performPaymentSearch() {
             if (!checkUrl()) return;
 
             const admissionNo = paymentAdmissionNo.value;
@@ -1112,6 +1116,17 @@
             } finally {
                 hideLoading();
             }
+        }
+
+        // Event Listeners - Payment 
+        searchPaymentBtn.addEventListener('click', performPaymentSearch);
+
+        // Add event listener to the Admission No input field for the Enter key press
+        paymentAdmissionNo.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent default form submission behavior (if any)
+                performPaymentSearch(); // Call the shared search function
+            }
         });
 
         paymentForm.addEventListener('submit', async function(event) {
@@ -1127,7 +1142,7 @@
             const paymentData = Object.fromEntries(formData.entries());
             const paymentType = paymentData['Payment Type'];
 
-            // --- START: Payment Validation Check (NEW LOGIC) ---
+            // Payment Validation Check
             const alreadyPaid = currentPaymentHistory.some(payment => 
                 payment['Payment Type'] === paymentType
             );
@@ -1136,7 +1151,6 @@
                 showMessage(`Payment for **${paymentType}** has already been submitted for this student. Submission prevented.`, 'red');
                 return; // Stop the function and prevent API call
             }
-            // --- END: Payment Validation Check ---
 
             showLoading();
             
@@ -1173,14 +1187,12 @@
 
         /**
          * Fetches and renders the payment history for a given admission number.
-         * (UPDATED to store history in currentPaymentHistory)
-         * @param {string} admissionNo The admission number to search for.
          */
         async function fetchPaymentHistory(admissionNo) {
             if (!checkUrl()) return;
             
             paymentHistoryTableContainer.innerHTML = '<p class="text-gray-500 text-center">Loading history...</p>';
-            currentPaymentHistory = []; // Clear current history before fetch
+            currentPaymentHistory = []; 
             
             try {
                 const response = await fetch(APPS_SCRIPT_URL, {
@@ -1249,7 +1261,14 @@
             paymentHistoryContainer.classList.remove('hidden');
         }
 
-        // Function to fetch and display student records (unchanged)
+        // --- RECORDS AND EXPORT LOGIC ---
+
+        // Listener for the Class Filter (Added to ensure re-rendering and data update on change)
+        classFilterSelect.addEventListener('change', renderFilteredRecords);
+
+        /**
+         * Fetches all student records from the server.
+         */
         async function fetchAllRecords() {
             if (!checkUrl()) return;
 
@@ -1273,7 +1292,7 @@
                     allStudentsData = result.data.data;
                     renderFilteredRecords();
                 } else {
-                    recordsContainer.innerHTML = '<p class="text-gray-500 text-center">No student records found for this class.</p>';
+                    recordsContainer.innerHTML = '<p class="text-gray-500 text-center">No student records found.</p>';
                     showMessage('No records found.', 'red');
                     totalStudentsRecords.textContent = '0';
                     totalMaleRecords.textContent = '0';
@@ -1291,7 +1310,10 @@
             }
         }
 
-        // Function to render records based on current filters (unchanged)
+        /**
+         * Filters student data based on the selected class and renders the table.
+         * Also updates the global currentFilteredData for export.
+         */
         function renderFilteredRecords() {
             recordsContainer.innerHTML = '<p class="text-gray-500 text-center">Filtering records...</p>';
             const selectedClass = classFilterSelect.value;
@@ -1313,6 +1335,9 @@
                 }
             }
             
+            // Store the filtered data array for export functionality
+            currentFilteredData = filteredStudents; 
+
             if (filteredStudents.length > 0) {
                 const genderIndex = allHeaders.findIndex(header => header.toLowerCase() === 'gender');
                 const dobIndex = allHeaders.findIndex(header => header.toLowerCase() === 'date of birth');
@@ -1375,7 +1400,73 @@
             }
         }
         
-        // Modal functions (unchanged)
+        /**
+         * Converts the current filtered student data into a CSV format and triggers a download.
+         */
+        function exportToCsv() {
+            if (currentFilteredData.length === 0 || allHeaders.length === 0) {
+                showMessage('No records available to export. Please load records first.', 'red');
+                return;
+            }
+
+            // 1. Get Headers
+            const headers = allHeaders;
+            const headerRow = headers.join(',');
+
+            // 2. Map data rows (ensuring correct formatting for dates and CSV safety)
+            const dobIndex = headers.findIndex(header => header.toLowerCase() === 'date of birth');
+            
+            const dataRows = currentFilteredData.map(studentArray => {
+                // Map the array of values to CSV format
+                return studentArray.map((value, index) => {
+                    let formattedValue = value;
+                    if (index === dobIndex) {
+                        // Use a standard YYYY-MM-DD date format for better Excel compatibility
+                        const date = new Date(value);
+                        if (!isNaN(date.getTime())) {
+                            formattedValue = date.toISOString().split('T')[0];
+                        }
+                    }
+                    // Simple CSV sanitation: handle commas by wrapping in double quotes
+                    if (typeof formattedValue === 'string') {
+                        // Replace double quotes with two double quotes (escapes them)
+                        formattedValue = formattedValue.replace(/"/g, '""');
+                        // Wrap the whole value in quotes if it contains a comma or newline
+                        if (formattedValue.includes(',') || formattedValue.includes('\n')) {
+                            formattedValue = `"${formattedValue}"`;
+                        }
+                    }
+                    return formattedValue;
+                }).join(',');
+            });
+
+            // 3. Combine header and data
+            const csvContent = headerRow + '\n' + dataRows.join('\n');
+
+            // 4. Create Blob and trigger download
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            
+            // Determine the filename based on the current filter
+            const className = classFilterSelect.value === 'all' ? 'All_Classes' : classFilterSelect.value;
+            link.download = `Student_Records_${className}_${new Date().toISOString().slice(0, 10)}.csv`;
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showMessage('Data exported successfully!', 'green');
+        }
+
+        // Attach event listener to the new Export button
+        exportDataBtn.addEventListener('click', exportToCsv);
+
+
+        // --- MODAL FUNCTIONS ---
+
         function openReceiptModal(paymentType, paymentAmount, paymentDate) {
             // Populate student details from the globally available foundStudentData
             document.getElementById('receipt-name').textContent = foundStudentData['Name'];
