@@ -119,10 +119,9 @@
 </head>
 <body class="bg-slate-50 min-h-screen flex items-center justify-center p-4">
     <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-sm lg:max-w-4xl border border-slate-200 transform transition-transform duration-300 hover:scale-[1.01]">
-        <h1 class="text-4xl font-extrabold text-center text-slate-800 mb-0 tracking-wide">The Demo School</h1>
-        <h1 class="text-2xl font-extrabold text-center text-slate-800 mb-2 tracking-wide">2025-26</h1>
-        <h1 class="text-1xl font-extrabold text-center text-slate-800 mb-2 tracking-wide">Student Data Managements</h1>
-        
+        <h1 class="text-4xl font-extrabold text-center text-slate-800 mb-1 tracking-wide">The Demo School</h1>
+        <h2 class="text-2xl font-extrabold text-center text-slate-800 mb-4 tracking-wide">2025-26</h2>
+        <h3 class="text-3xl font-extrabold text-center text-slate-800 mb-2 tracking-wide">Student Data Managements</h3>
         <!-- Main Menu Section -->
         <div id="main-menu" class="flex flex-col justify-center space-y-4">
             <button type="button" id="update-student-btn"
@@ -151,7 +150,7 @@
                 <div class="flex flex-col md:flex-row md:space-x-4 space-y-6 md:space-y-0">
                     <div class="flex-1">
                         <label for="class-name" class="block text-sm font-medium text-gray-700">Class Name</label>
-                        <select id="class-name" name="Class Name" class="mt-1 block w-full rounded-md border-2 border-gray-800 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
+                        <select id="class-name" name="Class Name" class="mt-1 block w-full rounded-md border-2 border-gray-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
                             <option value="">Select Class</option>
                             <option value="Class-1">Class-1</option>
                             <option value="Class-2">Class-2</option>
@@ -160,29 +159,29 @@
                     </div>
                     <div class="flex-1">
                         <label for="admission-no" class="block text-sm font-medium text-gray-700">Admission No</label>
-                        <input type="text" id="admission-no" name="Admission No" class="mt-1 block w-full rounded-md border-2 border-gray-800 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
+                        <input type="text" id="admission-no" name="Admission No" class="mt-1 block w-full rounded-md border-2 border-gray-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
                     </div>
                 </div>
                 
                 <!-- Single Field: Name -->
                 <div>
                     <label for="student-name" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" id="student-name" name="Name" class="mt-1 block w-full rounded-md border-2 border-gray-800 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
+                    <input type="text" id="student-name" name="Name" class="mt-1 block w-full rounded-md border-2 border-gray-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
                 </div>
                 
                 <!-- Group: Roll No, Section, & Gender -->
                 <div class="flex flex-col md:flex-row md:space-x-4 space-y-6 md:space-y-0">
                     <div class="flex-1">
                         <label for="roll-no" class="block text-sm font-medium text-gray-700">Roll No</label>
-                        <input type="text" id="roll-no" name="Roll No" class="mt-1 block w-full rounded-md border-2 border-gray-800 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
+                        <input type="text" id="roll-no" name="Roll No" class="mt-1 block w-full rounded-md border-2 border-gray-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
                     </div>
                     <div class="flex-1">
                         <label for="section" class="block text-sm font-medium text-gray-700">Section</label>
-                        <input type="text" id="section" name="Section" class="mt-1 block w-full rounded-md border-2 border-gray-800 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
+                        <input type="text" id="section" name="Section" class="mt-1 block w-full rounded-md border-2 border-gray-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
                     </div>
                     <div class="flex-1">
                         <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
-                        <select id="gender" name="Gender" class="mt-1 block w-full rounded-md border-2 border-gray-800 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
+                        <select id="gender" name="Gender" class="mt-1 block w-full rounded-md border-2 border-gray-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
                             <option value="">Select Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -195,24 +194,24 @@
                 <div class="flex flex-col md:flex-row md:space-x-4 space-y-6 md:space-y-0">
                     <div class="flex-1">
                         <label for="dob" class="block text-sm font-medium text-gray-700">Date of Birth</label>
-                        <input type="date" id="dob" name="Date of Birth" class="mt-1 block w-full rounded-md border-2 border-gray-800 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
+                        <input type="date" id="dob" name="Date of Birth" class="mt-1 block w-full rounded-md border-2 border-gray-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
                     </div>
                     <div class="flex-1">
                         <label for="contact-no" class="block text-sm font-medium text-gray-700">Contact No</label>
-                        <input type="tel" id="contact-no" name="Contact No" class="mt-1 block w-full rounded-md border-2 border-gray-800 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
+                        <input type="tel" id="contact-no" name="Contact No" class="mt-1 block w-full rounded-md border-2 border-gray-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
                     </div>
                 </div>
                 
                 <!-- Single Field: Father Name -->
                 <div>
                     <label for="father-name" class="block text-sm font-medium text-gray-700">Father Name</label>
-                    <input type="text" id="father-name" name="Father Name" class="mt-1 block w-full rounded-md border-2 border-gray-800 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
+                    <input type="text" id="father-name" name="Father Name" class="mt-1 block w-full rounded-md border-2 border-gray-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required>
                 </div>
                 
                 <!-- Single Field: Address -->
                 <div>
                     <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-                    <textarea id="address" name="Address" rows="3" class="mt-1 block w-full rounded-md border-2 border-gray-800 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required></textarea>
+                    <textarea id="address" name="Address" rows="3" class="mt-1 block w-full rounded-md border-2 border-gray-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" required></textarea>
                 </div>
 
                 <div class="flex justify-between space-x-4 pt-4">
@@ -343,10 +342,6 @@
                         class="flex-1 flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-slate-500 hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400 transition duration-150 ease-in-out transform hover:scale-105 hover:shadow-xl">
                         Back
                     </button>
-                <button type="button" id="export-excel-btn"
-                        class="flex-1 flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition duration-150 ease-in-out transform hover:scale-105 hover:shadow-xl">
-                    Export Excel Data
-                </button>
             </div>
         </div>
 
@@ -598,8 +593,7 @@
         const backBtnPreview = document.getElementById('back-btn-preview');
         const backBtnViewRecords = document.getElementById('back-btn-view-records');
         const backBtnPayment = document.getElementById('back-btn-payment');
-        const backBtnPaymentStatus = document.getElementById('back-btn-payment-status');
-        const exportExcelBtn = document.getElementById('export-excel-btn'); // NEW: Export Button
+        const backBtnPaymentStatus = document.getElementById('back-btn-payment-status'); 
         const searchPaymentBtn = document.getElementById('search-payment-btn');
         const paymentForm = document.getElementById('payment-form');
 
@@ -651,8 +645,8 @@
         // Global variables for caching data and student details
         let allStudentsData = [];
         let allHeaders = [];
-        let currentFilteredData = []; // NEW: Store data currently displayed in the table
         let foundStudentData = null; // Store the found student object
+        let currentPaymentHistory = []; // NEW: Store the payment history for validation
         
         // Global variables for dynamic passcode handling
         let pendingAction = null; 
@@ -819,9 +813,6 @@
                 window.open('https://lsurjit.github.io/thedemoschool/'); 
             }, PASSCODES.PAYMENT_STATUS, "Payment Status");
         });
-        
-        // Listener for the class filter select (re-render on change)
-        classFilterSelect.addEventListener('change', renderFilteredRecords);
 
         // Event Listeners - Back buttons (no passcode required)
         backBtnForm.addEventListener('click', () => { showSection(mainMenu); console.log('Navigated back to main menu from form.'); });
@@ -830,9 +821,6 @@
         backBtnViewRecords.addEventListener('click', () => { showSection(mainMenu); console.log('Navigated back to main menu from view records.'); });
         backBtnPayment.addEventListener('click', () => { showSection(mainMenu); console.log('Navigated back to main menu from update payment.'); });
         backBtnPaymentStatus.addEventListener('click', () => { showSection(mainMenu); console.log('Navigated back to main menu from payment status (Informational section).'); });
-
-        // --- NEW: Export to Excel Data Button Listener ---
-        exportExcelBtn.addEventListener('click', exportRecordsToExcel);
 
         // Event Listeners - Form Submission (unchanged)
         studentEntryForm.addEventListener('submit', async function(event) {
@@ -1063,7 +1051,7 @@
             reader.readAsText(file);
         });
         
-        // Event Listeners - Payment (unchanged)
+        // Event Listeners - Payment (UPDATED)
         searchPaymentBtn.addEventListener('click', async function() {
             if (!checkUrl()) return;
 
@@ -1077,6 +1065,7 @@
             showLoading();
             studentDetailsContainer.classList.add('hidden'); // Hide container before search
             paymentHistoryContainer.classList.add('hidden'); // Hide history container as well
+            currentPaymentHistory = []; // IMPORTANT: Clear history on new search
 
             const formData = {
                 action: 'searchStudent',
@@ -1134,14 +1123,27 @@
 
             if (!checkUrl()) return;
 
-            showLoading();
             const formData = new FormData(event.target);
             const paymentData = Object.fromEntries(formData.entries());
+            const paymentType = paymentData['Payment Type'];
 
+            // --- START: Payment Validation Check (NEW LOGIC) ---
+            const alreadyPaid = currentPaymentHistory.some(payment => 
+                payment['Payment Type'] === paymentType
+            );
+
+            if (alreadyPaid) {
+                showMessage(`Payment for **${paymentType}** has already been submitted for this student. Submission prevented.`, 'red');
+                return; // Stop the function and prevent API call
+            }
+            // --- END: Payment Validation Check ---
+
+            showLoading();
+            
             const data = {
                 action: 'updatePayment',
                 admissionNo: foundStudentData['Admission No'],
-                paymentType: paymentData['Payment Type'],
+                paymentType: paymentType,
                 paymentAmount: paymentData['Payment Amount']
             };
 
@@ -1171,12 +1173,14 @@
 
         /**
          * Fetches and renders the payment history for a given admission number.
+         * (UPDATED to store history in currentPaymentHistory)
          * @param {string} admissionNo The admission number to search for.
          */
         async function fetchPaymentHistory(admissionNo) {
             if (!checkUrl()) return;
             
             paymentHistoryTableContainer.innerHTML = '<p class="text-gray-500 text-center">Loading history...</p>';
+            currentPaymentHistory = []; // Clear current history before fetch
             
             try {
                 const response = await fetch(APPS_SCRIPT_URL, {
@@ -1188,6 +1192,7 @@
                 const result = await response.json();
 
                 if (result.success) {
+                    currentPaymentHistory = result.history; // Store history for validation
                     renderPaymentHistory(result.history);
                 } else {
                     paymentHistoryTableContainer.innerHTML = '<p class="text-gray-500 text-center">Failed to load payment history.</p>';
@@ -1286,7 +1291,7 @@
             }
         }
 
-        // Function to render records based on current filters (UPDATED to save currentFilteredData)
+        // Function to render records based on current filters (unchanged)
         function renderFilteredRecords() {
             recordsContainer.innerHTML = '<p class="text-gray-500 text-center">Filtering records...</p>';
             const selectedClass = classFilterSelect.value;
@@ -1308,9 +1313,6 @@
                 }
             }
             
-            // Store the currently filtered data globally for the export function
-            currentFilteredData = filteredStudents; 
-
             if (filteredStudents.length > 0) {
                 const genderIndex = allHeaders.findIndex(header => header.toLowerCase() === 'gender');
                 const dobIndex = allHeaders.findIndex(header => header.toLowerCase() === 'date of birth');
@@ -1373,51 +1375,6 @@
             }
         }
         
-        /**
-         * Converts current filtered student data into a CSV string and triggers download.
-         */
-        function exportRecordsToExcel() {
-            if (currentFilteredData.length === 0) {
-                showMessage('No data to export.', 'red');
-                return;
-            }
-
-            const dobIndex = allHeaders.findIndex(header => header.toLowerCase() === 'date of birth');
-            
-            // 1. Create Header Row (wrap headers in quotes to handle potential spaces)
-            let csvContent = allHeaders.map(header => `"${header}"`).join(',') + '\n';
-
-            // 2. Create Data Rows
-            currentFilteredData.forEach(studentRow => {
-                const row = studentRow.map((item, index) => {
-                    let cellData = item;
-                    // Format Date of Birth for Excel/CSV readability
-                    if (index === dobIndex) {
-                        cellData = formatDate(item);
-                    }
-                    // Handle commas/quotes in data by wrapping in quotes and escaping existing quotes
-                    return `"${String(cellData).replace(/"/g, '""')}"`;
-                }).join(',');
-                csvContent += row + '\n';
-            });
-
-            // 3. Trigger Download
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            const className = classFilterSelect.value === 'all' ? 'All_Classes' : classFilterSelect.value;
-            const filename = `${className}_Records_${new Date().toISOString().slice(0, 10)}.csv`;
-            
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            showMessage('Export successful! Check your downloads folder.', 'green');
-        }
-
         // Modal functions (unchanged)
         function openReceiptModal(paymentType, paymentAmount, paymentDate) {
             // Populate student details from the globally available foundStudentData
@@ -1475,4 +1432,3 @@
     </script>
 </body>
 </html>
-
